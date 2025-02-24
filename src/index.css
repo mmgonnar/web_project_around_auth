@@ -1,5 +1,7 @@
 @import url(./vendor/normalize.css);
-@import url(./fonts/fonts.css);
+/* @import url(./fonts/fonts.css); */
+@import "~@fontsource/inter/index.css";
+
 /* Header */
 @import url(./blocks/header.css);
 /* Profile */
@@ -12,6 +14,7 @@
 @import url(./blocks/footer.css);
 /* PopUp */
 @import url(./blocks/popup.css);
+
 
 #root {
   width: 100%;
