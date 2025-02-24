@@ -1,0 +1,40 @@
+@import url(./vendor/normalize.css);
+@import url(./fonts/fonts.css);
+/* Header */
+@import url(./blocks/header.css);
+/* Profile */
+@import url(./blocks/profile.css);
+/* Button */
+@import url(./blocks/button.css);
+/* Cards */
+@import url(./blocks/cards.css);
+/* Footer */
+@import url(./blocks/footer.css);
+/* PopUp */
+@import url(./blocks/popup.css);
+
+#root {
+  width: 100%;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 100%;
+  height: 100%;
+  max-width: 880px;
+  margin: auto;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 16px;
+  /* font-size: 62.5%; */
+  line-height: 1.5;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+}

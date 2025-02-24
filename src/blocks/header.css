@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  width: 100%;
+  max-width: 880px;
+  border-bottom: 1px solid #555;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.header__logo {
+  width: 126px;
+  height: auto;
+  margin: 28px;
+}
+
+@media screen and (max-width: 1280px) {
+  .header__logo {
+    width: 173px;
+  }
+}
+
+/* @media screen and (max-width: 768px) {
+  .header {
+    margin-bottom: 38px;
+    padding: 28px 0 32px 0;
+  }
+    .header__logo {
+        width: 126px;
+    }
+} */

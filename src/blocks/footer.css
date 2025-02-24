@@ -1,0 +1,21 @@
+.footer {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: rgba(84, 84, 84, 1);
+  padding-bottom: 3.75em;
+}
+
+.footer__text {
+  width: 95%;
+  font-size: 0.9em;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: rgba(84, 84, 84, 1);
+  cursor: pointer;
+}
