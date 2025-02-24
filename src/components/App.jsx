@@ -53,7 +53,6 @@ function App() {
         newCard = await api.deleteLikeCard(card._id);
       } else {
         newCard = await api.likeCard(card._id);
-        console.error("Liked Card", error);
       }
 
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
