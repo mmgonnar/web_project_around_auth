@@ -89,11 +89,11 @@
 }
 
 .button_delete {
-  background: url(../../public/icons/delete_button.svg);
+  background: url(../../public/icons/trash.svg);
   position: absolute;
   top: 18px;
   right: 15px;
-  width: 16px;
+  width: 18px;
   height: 19px;
   border: none;
   filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.5));
