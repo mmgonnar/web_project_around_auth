@@ -4,8 +4,6 @@ import Header from "./Header";
 import Main from "./Main";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
-import { Router } from "express";
-import { Routes } from "react-router-dom";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -55,7 +53,7 @@ function App() {
         newCard = await api.deleteLikeCard(card._id);
       } else {
         newCard = await api.likeCard(card._id);
-        //console.error("Liked Card", error);
+        console.error("Liked Card", error);
       }
 
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
@@ -147,36 +145,26 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <>
-        <Router>
-          <Routes>
-            <Route
-              path="/"
-              elemnt={
-                <Main
-                  isEditProfilePopupOpen={isEditProfilePopupOpen}
-                  isAddPlacePopupOpen={isAddPlacePopupOpen}
-                  isAvatarPopupOpen={isAvatarPopupOpen}
-                  isCardPopupOpen={isCardPopupOpen}
-                  onEditProfileClick={handleEditProfileClick}
-                  onAddPlaceClick={handleAddPlaceClick}
-                  onEditAvatarClick={handleEditAvatarClick}
-                  onCardClick={handleCardClick}
-                  onClose={handleClose}
-                  selectedCard={selectedCard}
-                  setCurrentUser={setCurrentUser}
-                  onUpdateUser={handleUpdateUser}
-                  onUpdateAvatar={handleUpdateAvatar}
-                  cards={cards}
-                  onCardDelete={handleCardDelete}
-                  onCardLike={handleCardLike}
-                  onAddCard={handleNewCard}
-                />
-              }
-            />
-          </Routes>
-        </Router>
         <Header />
-
+        <Main
+          isEditProfilePopupOpen={isEditProfilePopupOpen}
+          isAddPlacePopupOpen={isAddPlacePopupOpen}
+          isAvatarPopupOpen={isAvatarPopupOpen}
+          isCardPopupOpen={isCardPopupOpen}
+          onEditProfileClick={handleEditProfileClick}
+          onAddPlaceClick={handleAddPlaceClick}
+          onEditAvatarClick={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+          onClose={handleClose}
+          selectedCard={selectedCard}
+          setCurrentUser={setCurrentUser}
+          onUpdateUser={handleUpdateUser}
+          onUpdateAvatar={handleUpdateAvatar}
+          cards={cards}
+          onCardDelete={handleCardDelete}
+          onCardLike={handleCardLike}
+          onAddCard={handleNewCard}
+        />
         <Footer />
       </>
     </CurrentUserContext.Provider>
