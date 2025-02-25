@@ -12,6 +12,9 @@
 @import url(./blocks/footer.css);
 /* PopUp */
 @import url(./blocks/popup.css);
+/* Login */
+@import url(./blocks/login.css);
+
 
 #root {
   width: 100%;
@@ -37,4 +40,5 @@ body {
   align-items: center;
   flex-wrap: wrap;
   align-content: center;
+  overflow: hidden
 }

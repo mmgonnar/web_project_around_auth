@@ -13,11 +13,13 @@ const Main = (props) => {
     <>
       <section className="profile">
         <div className="profile__container">
-          <img
-            src={currentUser.avatar}
-            alt="profile avatar"
-            className="profile__avatar"
-          />
+          {currentUser.avatar && (
+            <img
+              src={currentUser.avatar}
+              alt="profile avatar"
+              className="profile__avatar"
+            />
+          )}
           <button
             onClick={props.onEditAvatarClick}
             className="button button_edit-avatar"

@@ -173,16 +173,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/signup"
-          element={
-            <>
-              <div>
-                <h2>Title</h2>
-              </div>
-            </>
-          }
-        />
+        <Route path="/signup" element={<Login />} />
       </Routes>
       <Footer />
     </CurrentUserContext.Provider>
