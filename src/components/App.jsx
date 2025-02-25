@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
+import Login from "./Login";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -144,29 +147,44 @@ function App() {
   };
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <>
-        <Header />
-        <Main
-          isEditProfilePopupOpen={isEditProfilePopupOpen}
-          isAddPlacePopupOpen={isAddPlacePopupOpen}
-          isAvatarPopupOpen={isAvatarPopupOpen}
-          isCardPopupOpen={isCardPopupOpen}
-          onEditProfileClick={handleEditProfileClick}
-          onAddPlaceClick={handleAddPlaceClick}
-          onEditAvatarClick={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onClose={handleClose}
-          selectedCard={selectedCard}
-          setCurrentUser={setCurrentUser}
-          onUpdateUser={handleUpdateUser}
-          onUpdateAvatar={handleUpdateAvatar}
-          cards={cards}
-          onCardDelete={handleCardDelete}
-          onCardLike={handleCardLike}
-          onAddCard={handleNewCard}
+      <Header />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Main
+              isEditProfilePopupOpen={isEditProfilePopupOpen}
+              isAddPlacePopupOpen={isAddPlacePopupOpen}
+              isAvatarPopupOpen={isAvatarPopupOpen}
+              isCardPopupOpen={isCardPopupOpen}
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onEditAvatarClick={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              onClose={handleClose}
+              selectedCard={selectedCard}
+              setCurrentUser={setCurrentUser}
+              onUpdateUser={handleUpdateUser}
+              onUpdateAvatar={handleUpdateAvatar}
+              cards={cards}
+              onCardDelete={handleCardDelete}
+              onCardLike={handleCardLike}
+              onAddCard={handleNewCard}
+            />
+          }
         />
-        <Footer />
-      </>
+        <Route
+          path="/signup"
+          element={
+            <>
+              <div>
+                <h2>Title</h2>
+              </div>
+            </>
+          }
+        />
+      </Routes>
+      <Footer />
     </CurrentUserContext.Provider>
   );
 }
