@@ -30,6 +30,17 @@ const Register = () => {
               required
               autoComplete="on"
             />
+            {/* <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              className="form__input form__input-password"
+              placeholder="Confirm Password"
+              minLength="2"
+              maxLength="40"
+              required
+              autoComplete="on"
+            /> */}
             <div className="form__container">
               <button className="button form__button" type="submit">
                 SIGN UP
