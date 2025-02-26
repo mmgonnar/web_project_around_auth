@@ -206,7 +206,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider
-      value={(currentUser, isLoggedIn, setIsLoggedIn)}
+      value={{ currentUser, isLoggedIn, setIsLoggedIn }}
     >
       <Header />
       <Routes>
