@@ -15,6 +15,7 @@ import api from "../utils/Api";
 import Login from "./Login";
 import * as auth from "../utils/auth";
 import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -190,36 +191,40 @@ function App() {
   };
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider
+      value={(currentUser, isLoggedIn, setIsLoggedIn)}
+    >
       <Header />
       <Routes>
         <Route
           path="/"
           element={
-            <Main
-              isEditProfilePopupOpen={isEditProfilePopupOpen}
-              isAddPlacePopupOpen={isAddPlacePopupOpen}
-              isAvatarPopupOpen={isAvatarPopupOpen}
-              isCardPopupOpen={isCardPopupOpen}
-              onEditProfileClick={handleEditProfileClick}
-              onAddPlaceClick={handleAddPlaceClick}
-              onEditAvatarClick={handleEditAvatarClick}
-              onCardClick={handleCardClick}
-              onClose={handleClose}
-              selectedCard={selectedCard}
-              setCurrentUser={setCurrentUser}
-              onUpdateUser={handleUpdateUser}
-              onUpdateAvatar={handleUpdateAvatar}
-              cards={cards}
-              onCardDelete={handleCardDelete}
-              onCardLike={handleCardLike}
-              onAddCard={handleNewCard}
-            />
+            <ProtectedRoute>
+              <Main
+                isEditProfilePopupOpen={isEditProfilePopupOpen}
+                isAddPlacePopupOpen={isAddPlacePopupOpen}
+                isAvatarPopupOpen={isAvatarPopupOpen}
+                isCardPopupOpen={isCardPopupOpen}
+                onEditProfileClick={handleEditProfileClick}
+                onAddPlaceClick={handleAddPlaceClick}
+                onEditAvatarClick={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                onClose={handleClose}
+                selectedCard={selectedCard}
+                setCurrentUser={setCurrentUser}
+                onUpdateUser={handleUpdateUser}
+                onUpdateAvatar={handleUpdateAvatar}
+                cards={cards}
+                onCardDelete={handleCardDelete}
+                onCardLike={handleCardLike}
+                onAddCard={handleNewCard}
+              />
+            </ProtectedRoute>
           }
         />
         <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
         <Route
-          path="/register"
+          path="/signup"
           element={<Register handleRegistration={handleRegistration} />}
         />
       </Routes>
