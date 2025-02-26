@@ -12,7 +12,7 @@ const Header = () => {
         <a className="header__text" href="/">
           Dinamic Text
         </a>
-        {/* <button className="button button_edit-avatar"></button> */}
+        {/* <button className="button header__icon"></button> */}
       </div>
     </header>
   );

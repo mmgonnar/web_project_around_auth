@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
 import Footer from "./Footer";
 import Header from "./Header";
@@ -25,6 +31,9 @@ function App() {
     about: "",
     avatar: "",
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -150,6 +159,22 @@ function App() {
     setClose(false);
   };
 
+  const handleRegistration = ({
+    username,
+    email,
+    password,
+    confirmPassword,
+  }) => {
+    if (password === confirmPassword) {
+      auth
+        .register(username, email, password)
+        .then(() => {
+          navigate("/");
+        })
+        .catch(console.error);
+    }
+  };
+
   const handleLogin = ({ username, password }) => {
     if (!username || !password) {
       return;
@@ -191,8 +216,11 @@ function App() {
             />
           }
         />
-        <Route path="/signup" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route
+          path="/register"
+          element={<Register handleRegistration={handleRegistration} />}
+        />
       </Routes>
       <Footer />
     </CurrentUserContext.Provider>
