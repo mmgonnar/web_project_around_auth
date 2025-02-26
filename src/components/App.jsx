@@ -177,18 +177,32 @@ function App() {
     }
   };
 
-  const handleLogin = ({ username, password }) => {
-    if (!username || !password) {
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
       return;
     }
     auth
-      .authorize(username, password)
+      .authorize(email, password)
       .then((data) => {
         setUserData(data);
         setIsLoggedIn(true);
       })
       .catch(console.error);
   };
+
+  useEffect(() => {
+    const jwt = getSelection();
+    if (!jwt) {
+      return;
+    }
+    api
+      .getUserInfo(jwt)
+      .then(({ email }) => {
+        setIsLoggedIn(true);
+        setUserData(email);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <CurrentUserContext.Provider
