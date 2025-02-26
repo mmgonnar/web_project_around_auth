@@ -27,11 +27,15 @@
 
 .header__text {
   font-size: 1em;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
 }
 
 .header__icon {
-  width: 100%;
+  width: 16px;
 }
+
 
 @media screen and (min-width: 400px) {
   .header__logo {
