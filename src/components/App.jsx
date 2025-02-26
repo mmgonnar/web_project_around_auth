@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
-import { Router } from "express";
-import { Routes } from "react-router-dom";
+import Login from "./Login";
+import * as auth from "../utils/auth";
+import Register from "./Register";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -14,12 +23,17 @@ function App() {
   const [isCardPopupOpen, setCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
+  const [userData, setUserData] = useState({ username: "", email: "" });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     name: "",
     about: "",
     avatar: "",
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -60,7 +74,7 @@ function App() {
 
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     } catch (error) {
-      console.error("card like status: ", error);
+      //console.error("card like status: ", error);
     }
   };
 
@@ -144,41 +158,72 @@ function App() {
     const setClose = handlers[popupId];
     setClose(false);
   };
+
+  const handleRegistration = ({
+    email,
+    password,
+    confirmPassword,
+    username,
+  }) => {
+    console.log(email, password, confirmPassword);
+    if (password === confirmPassword) {
+      auth
+        .register(email, password, confirmPassword)
+        .then(() => {
+          navigate("/");
+        })
+        .catch(console.error);
+    }
+  };
+
+  const handleLogin = ({ username, password }) => {
+    if (!username || !password) {
+      return;
+    }
+    auth
+      .authorize(username, password)
+      .then((data) => {
+        setUserData(data);
+        setIsLoggedIn(true);
+      })
+      .catch(console.error);
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <>
-        <Router>
-          <Routes>
-            <Route
-              path="/"
-              elemnt={
-                <Main
-                  isEditProfilePopupOpen={isEditProfilePopupOpen}
-                  isAddPlacePopupOpen={isAddPlacePopupOpen}
-                  isAvatarPopupOpen={isAvatarPopupOpen}
-                  isCardPopupOpen={isCardPopupOpen}
-                  onEditProfileClick={handleEditProfileClick}
-                  onAddPlaceClick={handleAddPlaceClick}
-                  onEditAvatarClick={handleEditAvatarClick}
-                  onCardClick={handleCardClick}
-                  onClose={handleClose}
-                  selectedCard={selectedCard}
-                  setCurrentUser={setCurrentUser}
-                  onUpdateUser={handleUpdateUser}
-                  onUpdateAvatar={handleUpdateAvatar}
-                  cards={cards}
-                  onCardDelete={handleCardDelete}
-                  onCardLike={handleCardLike}
-                  onAddCard={handleNewCard}
-                />
-              }
+      <Header />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Main
+              isEditProfilePopupOpen={isEditProfilePopupOpen}
+              isAddPlacePopupOpen={isAddPlacePopupOpen}
+              isAvatarPopupOpen={isAvatarPopupOpen}
+              isCardPopupOpen={isCardPopupOpen}
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onEditAvatarClick={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              onClose={handleClose}
+              selectedCard={selectedCard}
+              setCurrentUser={setCurrentUser}
+              onUpdateUser={handleUpdateUser}
+              onUpdateAvatar={handleUpdateAvatar}
+              cards={cards}
+              onCardDelete={handleCardDelete}
+              onCardLike={handleCardLike}
+              onAddCard={handleNewCard}
             />
-          </Routes>
-        </Router>
-        <Header />
-
-        <Footer />
-      </>
+          }
+        />
+        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route
+          path="/register"
+          element={<Register handleRegistration={handleRegistration} />}
+        />
+      </Routes>
+      <Footer />
     </CurrentUserContext.Provider>
   );
 }

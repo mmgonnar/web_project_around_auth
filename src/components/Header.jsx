@@ -8,6 +8,12 @@ const Header = () => {
         alt="Logo Around the US"
         className="header__logo"
       />
+      <div className="header__text-container">
+        <a className="header__text" href="/">
+          Dinamic Text
+        </a>
+        {/* <button className="button header__icon"></button> */}
+      </div>
     </header>
   );
 };

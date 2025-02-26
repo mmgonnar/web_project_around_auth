@@ -5,17 +5,49 @@
   border-bottom: 1px solid #555;
   margin: auto;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .header__logo {
-  width: 126px;
+  width: 20%;
+  max-width: 170px;
+  min-width: 126px;
   height: auto;
-  margin: 28px;
+  margin-left: 28px;
 }
 
-@media screen and (max-width: 1280px) {
+.header__text-container {
+  margin: 28px;
+  gap: .5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-right: 28px;
+}
+
+.header__text {
+  font-size: 1em;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.header__icon {
+  width: 16px;
+  background: url(../../public/icons/sign_out.svg);
+  height: 19px;
+  border: none;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.5));
+  transition: 0.3s;
+}
+
+
+
+@media screen and (min-width: 400px) {
   .header__logo {
-    width: 173px;
+    width: 170px;
   }
 }
 
