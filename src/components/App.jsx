@@ -8,6 +8,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import Login from "./Login";
 import * as auth from "../utils/auth";
+import Register from "./Register";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -191,6 +192,7 @@ function App() {
           }
         />
         <Route path="/signup" element={<Login handleLogin={handleLogin} />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </CurrentUserContext.Provider>
