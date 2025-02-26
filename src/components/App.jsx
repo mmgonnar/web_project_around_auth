@@ -160,14 +160,15 @@ function App() {
   };
 
   const handleRegistration = ({
-    username,
     email,
     password,
     confirmPassword,
+    username,
   }) => {
+    console.log(email, password, confirmPassword);
     if (password === confirmPassword) {
       auth
-        .register(username, email, password)
+        .register(email, password, confirmPassword)
         .then(() => {
           navigate("/");
         })
@@ -182,7 +183,7 @@ function App() {
     auth
       .authorize(username, password)
       .then((data) => {
-        setUserData();
+        setUserData(data);
         setIsLoggedIn(true);
       })
       .catch(console.error);

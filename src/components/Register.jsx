@@ -9,11 +9,13 @@ const Register = ({ handleRegistration }) => {
     confirmPassword: "",
   });
 
-  const [passwordConfirm, setPasswordConfirm] = useState(false);
+  // const [isConfirmEnabled, setIsConfirmEnabled] = useState(false);
 
-  if (passwordConfirm === "password") {
-    setPasswordConfirm(true);
-  }
+  // const [passwordConfirm, setPasswordConfirm] = useState(false);
+
+  // if (passwordConfirm === "password") {
+  //   setPasswordConfirm(true);
+  // }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,15 +42,15 @@ const Register = ({ handleRegistration }) => {
           <form className="form__set" onSubmit={handleSubmit}>
             <input
               type="text"
-              name="username"
-              id="username"
+              name="email"
+              id="email"
               className="form__input form__input-username"
               placeholder="Username"
               minLength="2"
               maxLength="40"
               required
               autoComplete="on"
-              value={data.username}
+              value={data.email}
               onChange={handleChange}
             />
             <input
@@ -68,7 +70,9 @@ const Register = ({ handleRegistration }) => {
               type="password"
               name="confirmPassword"
               id="confirmPassword"
-              className="form__input form__input-confirm-password"
+              className={`form__input form__input-password ${
+                !data.password ? "form__input-confirm-password" : ""
+              }`}
               placeholder="Confirm Password"
               minLength="2"
               maxLength="40"
@@ -76,8 +80,9 @@ const Register = ({ handleRegistration }) => {
               autoComplete="on"
               value={data.confirmPassword}
               onChange={handleChange}
-              disabled={!passwordConfirm}
+              disabled={!data.password}
             />
+            <span className="form__error" id="form__error"></span>
             <div className="form__container">
               <button className="button form__button" type="submit">
                 SIGN UP
