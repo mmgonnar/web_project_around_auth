@@ -13,7 +13,7 @@
   max-width: 170px;
   min-width: 126px;
   height: auto;
-  margin: 28px;
+  margin-left: 28px;
 }
 
 .header__text-container {
@@ -23,6 +23,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  margin-right: 28px;
 }
 
 .header__text {
@@ -30,6 +31,7 @@
   text-decoration: none;
   color: white;
   cursor: pointer;
+  padding-top: 10px;
 }
 
 .header__icon {

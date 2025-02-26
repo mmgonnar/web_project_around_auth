@@ -7,6 +7,7 @@ import Main from "./Main";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import Login from "./Login";
+import * as auth from "../utils/auth";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -15,6 +16,8 @@ function App() {
   const [isCardPopupOpen, setCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
+  const [userData, setUserData] = useState({ username: "", email: "" });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -145,6 +148,20 @@ function App() {
     const setClose = handlers[popupId];
     setClose(false);
   };
+
+  const handleLogin = ({ username, password }) => {
+    if (!username || !password) {
+      return;
+    }
+    auth
+      .authorize(username, password)
+      .then((data) => {
+        setUserData();
+        setIsLoggedIn(true);
+      })
+      .catch(console.error);
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
@@ -173,7 +190,7 @@ function App() {
             />
           }
         />
-        <Route path="/signup" element={<Login />} />
+        <Route path="/signup" element={<Login handleLogin={handleLogin} />} />
       </Routes>
       <Footer />
     </CurrentUserContext.Provider>
