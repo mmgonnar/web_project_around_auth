@@ -27,13 +27,13 @@
 }
 
 .header__text {
-  font-size: 1em;
+  font-size: clamp(1em, 2.5vw, 1.5em);
   text-decoration: none;
   color: white;
   cursor: pointer;
   padding-top: 10px;
   background: none;
-  border: none
+  border: none;
 }
 
 .header__icon {

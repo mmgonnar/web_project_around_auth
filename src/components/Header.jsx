@@ -35,12 +35,13 @@ const Header = () => {
         <button className="button header__text" onClick={handleLogin}>
           {location.pathname.includes("/signin") ? "Register" : "Login"}
         </button>
-        {location.pathname !== "/signin" && location.pathname !== "/signup" && (
-          <button
-            className="button header__icon"
-            onClick={handleLogout}
-          ></button>
-        )}
+        {location.pathname.includes("/signin") &&
+          location.pathname.includes("/signup") && (
+            <button
+              className="button header__icon"
+              onClick={handleLogout}
+            ></button>
+          )}
       </div>
     </header>
   );

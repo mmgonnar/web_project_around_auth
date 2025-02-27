@@ -1,21 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = ({ handleRegistration }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
-    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
-  // const [isConfirmEnabled, setIsConfirmEnabled] = useState(false);
-
-  // const [passwordConfirm, setPasswordConfirm] = useState(false);
-
-  // if (passwordConfirm === "password") {
-  //   setPasswordConfirm(true);
-  // }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +19,11 @@ const Register = ({ handleRegistration }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(data.email)) {
+      console.error("Please use an email");
+      return;
+    }
     if (data.password !== data.confirmPassword) {
       console.error("Passwords do not match!");
       return;
@@ -45,7 +42,7 @@ const Register = ({ handleRegistration }) => {
               name="email"
               id="email"
               className="form__input form__input-username"
-              placeholder="Username"
+              placeholder="Email"
               minLength="2"
               maxLength="40"
               required

@@ -38,11 +38,11 @@
 .form__button {
   background-color: white;
   color: black;
-  width: 260px;
   height: 46px;
   border-radius: 2px;
   margin: auto;
   border: none;
+  width: 100%;
 }
 
 .form__text-container {
@@ -69,6 +69,7 @@
   align-items: center;
   padding-top: 9em;
   gap: 1.5em;
+  width: 100%;
 }
 
 .form__input-confirm-password {

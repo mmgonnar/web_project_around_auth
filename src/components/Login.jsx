@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Login = ({ handleLogin }) => {
   const [data, setData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -17,6 +17,7 @@ const Login = ({ handleLogin }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleLogin(data);
+    //localStorage.setItem("jwt", token)
   };
 
   return (
@@ -27,8 +28,8 @@ const Login = ({ handleLogin }) => {
           <form className="form__set" onSubmit={handleSubmit}>
             <input
               type="text"
-              name="username"
-              id="username"
+              name="email"
+              id="email"
               className="form__input form__input-username"
               placeholder="Username"
               minLength="2"

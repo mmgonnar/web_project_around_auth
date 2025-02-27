@@ -26,7 +26,6 @@ function App() {
   const [cards, setCards] = useState([]);
   const [userData, setUserData] = useState({ username: "", email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [currentUser, setCurrentUser] = useState({
     name: "",
     about: "",
@@ -160,13 +159,7 @@ function App() {
     setClose(false);
   };
 
-  const handleRegistration = ({
-    email,
-    password,
-    confirmPassword,
-    username,
-  }) => {
-    console.log(email, password, confirmPassword);
+  const handleRegistration = ({ email, password, confirmPassword }) => {
     if (password === confirmPassword) {
       auth
         .register(email, password, confirmPassword)
@@ -186,6 +179,7 @@ function App() {
       .then((data) => {
         setUserData(data);
         setIsLoggedIn(true);
+        navigate("/");
         // const redirectPath = location.state?.from?.pathname || "/";
         // navigate(redirectPath);
       })
@@ -215,7 +209,10 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            >
               <Main
                 isEditProfilePopupOpen={isEditProfilePopupOpen}
                 isAddPlacePopupOpen={isAddPlacePopupOpen}

@@ -1,18 +1,33 @@
-import { useContext } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import AppContext from "../contexts/AppContext";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+//import { useContext } from "react";
+import { useEffect } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+//import AppContext from "../contexts/AppContext";
+//import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function ProtectedRoute(children, anonymous = false) {
-  const location = useLocation();
-  const from = location.state?.from || "/";
-  const { isLoggedIn } = useContext(CurrentUserContext);
+export default function ProtectedRoute({
+  children,
+  isLoggedIn,
+  setIsLoggedIn,
+}) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      navigate("/signin");
+    }
+  }, []);
 
-  if (anonymous && isLoggedIn) {
-    return <Navigate to={from} />;
-  }
-  if (!anonymous && !isLoggedIn) {
-    return <Navigate to="/signup" state={{ from: location }} />;
-  }
+  // const location = useLocation();
+  // const from = location.state?.from || "/";
+  // const { isLoggedIn } = useContext(CurrentUserContext);
+
+  // if (anonymous && isLoggedIn) {
+  //   return <Navigate to={from} />;
+  // }
+  // if (!anonymous && !isLoggedIn) {
+  //   return <Navigate to="/signup" state={{ from: location }} />;
+  // }
   return children;
 }
