@@ -32,6 +32,8 @@
   color: white;
   cursor: pointer;
   padding-top: 10px;
+  background: none;
+  border: none
 }
 
 .header__icon {
@@ -50,6 +52,10 @@
     width: 170px;
   }
 }
+
+/* 3 clases nuevas con 3 svg nuevas
+
+*/
 
 /* @media screen and (max-width: 768px) {
   .header {

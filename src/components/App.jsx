@@ -186,6 +186,8 @@ function App() {
       .then((data) => {
         setUserData(data);
         setIsLoggedIn(true);
+        // const redirectPath = location.state?.from?.pathname || "/";
+        // navigate(redirectPath);
       })
       .catch(console.error);
   };

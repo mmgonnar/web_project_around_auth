@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { removeToken } from "../utils/token";
 
 const Header = () => {
+  const { setIsLoggedIn } = useContext(CurrentUserContext);
+  const navigate = useNavigate(CurrentUserContext);
+
+  const location = useLocation();
+
+  function handleLogout() {
+    removeToken;
+    navigate("/signin");
+    setIsLoggedIn(false);
+  }
+
+  const handleLogin = () => {
+    if (location.pathname.includes("/signin")) {
+      navigate("/signup");
+    }
+    if (location.pathname === "/signup") {
+      navigate("/signin");
+    }
+  };
+
   return (
     <header className="header">
       <img
@@ -9,10 +32,15 @@ const Header = () => {
         className="header__logo"
       />
       <div className="header__text-container">
-        <a className="header__text" href="/">
-          Dinamic Text
-        </a>
-        {/* <button className="button header__icon"></button> */}
+        <button className="button header__text" onClick={handleLogin}>
+          {location.pathname.includes("/signin") ? "Register" : "Login"}
+        </button>
+        {location.pathname !== "/signin" && location.pathname !== "/signup" && (
+          <button
+            className="button header__icon"
+            onClick={handleLogout}
+          ></button>
+        )}
       </div>
     </header>
   );
