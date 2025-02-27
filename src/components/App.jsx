@@ -16,6 +16,7 @@ import Login from "./Login";
 import * as auth from "../utils/auth";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
+import { getToken, setToken, removeToken } from "../utils/token";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -45,8 +46,10 @@ function App() {
       }
     };
 
-    fetchUserInfo();
-  }, []);
+    if (isLoggedIn) {
+      fetchUserInfo();
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,8 +61,10 @@ function App() {
       }
     };
 
-    fetchData();
-  }, []);
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn]);
 
   const handleCardLike = async (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -164,7 +169,7 @@ function App() {
       auth
         .register(email, password, confirmPassword)
         .then(() => {
-          navigate("/");
+          navigate("/signin");
         })
         .catch(console.error);
     }
@@ -176,18 +181,22 @@ function App() {
     }
     auth
       .authorize(email, password)
-      .then((data) => {
-        setUserData(data);
-        setIsLoggedIn(true);
+      .then(({ token }) => {
+        setUserData(email, password);
+        setToken(token);
         navigate("/");
         // const redirectPath = location.state?.from?.pathname || "/";
         // navigate(redirectPath);
       })
       .catch(console.error);
   };
+  // const handleLogout = ({ token }) => {
+  //   removeToken(token);
+  //   navigate("/");
+  // };
 
   useEffect(() => {
-    const jwt = getSelection();
+    const jwt = getToken();
     if (!jwt) {
       return;
     }
@@ -235,10 +244,19 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route
+          path="/signin"
+          element={<Login handleLogin={handleLogin} />}
+          setIsLoggedIn={setIsLoggedIn}
+        />
         <Route
           path="/signup"
-          element={<Register handleRegistration={handleRegistration} />}
+          element={
+            <Register
+              handleRegistration={handleRegistration}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
         />
       </Routes>
       <Footer />

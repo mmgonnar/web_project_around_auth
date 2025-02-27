@@ -9,10 +9,11 @@ const Header = () => {
 
   const location = useLocation();
 
-  function handleLogout() {
+  function handleLogout({ token }) {
     removeToken;
-    navigate("/signin");
     setIsLoggedIn(false);
+    navigate("/signin");
+    removeToken();
   }
 
   const handleLogin = () => {
@@ -32,16 +33,30 @@ const Header = () => {
         className="header__logo"
       />
       <div className="header__text-container">
-        <button className="button header__text" onClick={handleLogin}>
-          {location.pathname.includes("/signin") ? "Register" : "Login"}
-        </button>
-        {location.pathname.includes("/signin") &&
+        {location.pathname !== "/" && (
+          <button className="button header__text" onClick={handleLogin}>
+            {location.pathname.includes("/signin") ? "Register" : "Login"}
+          </button>
+        )}
+        {location.pathname === "/" && (
+          <>
+            <button className="button header__text" onClick={handleLogout}>
+              Logout
+            </button>
+            {/* <img
+              className="button header__logout-icon"
+              onClick={handleLogout}
+            /> */}
+          </>
+        )}
+
+        {/* {location.pathname.includes("/signin") &&
           location.pathname.includes("/signup") && (
             <button
               className="button header__icon"
               onClick={handleLogout}
             ></button>
-          )}
+          )} */}
       </div>
     </header>
   );

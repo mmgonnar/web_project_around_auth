@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { getToken, setToken } from "../utils/token";
 
 const Login = ({ handleLogin }) => {
+  const initialState = "";
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    email: initialState,
+    password: initialState,
   });
 
   const handleChange = (evt) => {
@@ -17,7 +19,6 @@ const Login = ({ handleLogin }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleLogin(data);
-    //localStorage.setItem("jwt", token)
   };
 
   return (
@@ -31,13 +32,13 @@ const Login = ({ handleLogin }) => {
               name="email"
               id="email"
               className="form__input form__input-username"
-              placeholder="Username"
+              placeholder="Email"
               minLength="2"
               maxLength="40"
               required
               autoComplete="on"
               onChange={handleChange}
-              value={data.username}
+              value={data.email}
             />
             <input
               type="password"

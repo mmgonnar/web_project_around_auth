@@ -7,8 +7,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 
 const Main = (props) => {
-  const currentUser = useContext(CurrentUserContext);
-
+  const { currentUser } = useContext(CurrentUserContext);
   return (
     <>
       <section className="profile">
