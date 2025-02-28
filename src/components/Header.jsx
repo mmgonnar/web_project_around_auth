@@ -10,7 +10,6 @@ const Header = () => {
   const location = useLocation();
 
   function handleLogout({ token }) {
-    removeToken;
     setIsLoggedIn(false);
     navigate("/signin");
     removeToken();
