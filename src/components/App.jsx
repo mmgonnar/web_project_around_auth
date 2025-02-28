@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import {
   Routes,
   Route,
@@ -17,6 +17,7 @@ import * as auth from "../utils/auth";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import { getToken, setToken, removeToken } from "../utils/token";
+import InfoToolTip from "./InfoToolTip";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -33,25 +34,25 @@ function App() {
     avatar: "",
   });
 
+  const [isOpen, setIOpen] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const userData = await api.getUserInfo();
-        setCurrentUser(userData);
-      } catch (error) {
-        console.error("Error fetching user data: ", error);
-      }
-    };
-
-    if (isLoggedIn) {
-      fetchUserInfo();
+    const jwt = getToken();
+    if (!jwt) {
+      return;
     }
-  }, [isLoggedIn]);
+    api
+      .getUserInfo(jwt)
+      .then((userData) => {
+        setIsLoggedIn(true);
+        setUserData(userData.email);
+        setCurrentUser(userData);
+      })
+      .catch(console.error);
 
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const cardsData = await api.getCards();
@@ -185,6 +186,7 @@ function App() {
         setUserData(email, password);
         setToken(token);
         navigate("/");
+        setIsLoggedIn(true);
         // const redirectPath = location.state?.from?.pathname || "/";
         // navigate(redirectPath);
       })
@@ -195,23 +197,24 @@ function App() {
   //   navigate("/");
   // };
 
-  useEffect(() => {
-    const jwt = getToken();
-    if (!jwt) {
-      return;
-    }
-    api
-      .getUserInfo(jwt)
-      .then(({ email }) => {
-        setIsLoggedIn(true);
-        setUserData(email);
-      })
-      .catch(console.error);
-  }, []);
+  // useEffect(() => {
+  //   const jwt = getToken();
+  //   if (!jwt) {
+  //     return;
+  //   }
+  //   api
+  //     .getUserInfo(jwt)
+  //     .then((userData) => {
+  //       setIsLoggedIn(true);
+  //       setUserData(userData.email);
+  //       setCurrentUser(userData);
+  //     })
+  //     .catch(console.error);
+  // }, []);
 
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, isLoggedIn, setIsLoggedIn }}
+      value={{ currentUser, isLoggedIn, setIsLoggedIn, setCurrentUser }}
     >
       <Header />
       <Routes>
@@ -259,6 +262,7 @@ function App() {
           }
         />
       </Routes>
+      <InfoToolTip isOpen={isOpen} onClose={handleClose} />
       <Footer />
     </CurrentUserContext.Provider>
   );

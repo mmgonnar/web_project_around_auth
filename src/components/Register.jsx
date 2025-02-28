@@ -86,7 +86,7 @@ const Register = ({ handleRegistration }) => {
               </button>
               <div className="form__text-container">
                 <p className="form__text">Already a member?</p>
-                <Link to="/register" className="form__link">
+                <Link to="/signin" className="form__link">
                   Login here
                 </Link>
               </div>

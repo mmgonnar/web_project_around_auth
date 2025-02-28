@@ -59,7 +59,7 @@ const Login = ({ handleLogin }) => {
               </button>
               <div className="form__text-container">
                 <p className="form__text">You're not a member?</p>
-                <Link to="/register" className="form__link">
+                <Link to="/signup" className="form__link">
                   Register here
                 </Link>
               </div>

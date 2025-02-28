@@ -4,7 +4,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
 
 const Header = () => {
-  const { setIsLoggedIn } = useContext(CurrentUserContext);
+  const { setIsLoggedIn, setCurrentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate(CurrentUserContext);
 
   const location = useLocation();
@@ -13,6 +13,7 @@ const Header = () => {
     setIsLoggedIn(false);
     navigate("/signin");
     removeToken();
+    setCurrentUser({});
   }
 
   const handleLogin = () => {
