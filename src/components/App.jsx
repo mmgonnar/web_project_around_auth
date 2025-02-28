@@ -17,7 +17,7 @@ import * as auth from "../utils/auth";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import { getToken, setToken, removeToken } from "../utils/token";
-import InfoToolTip from "./InfoToolTip";
+import InfoTooltip from "./InfoToolTip";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -35,6 +35,7 @@ function App() {
   });
 
   const [isOpen, setIOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -170,12 +171,18 @@ function App() {
       auth
         .register(email, password, confirmPassword)
         .then(() => {
+          setIOpen(true);
+          setIsSuccess(true);
           navigate("/signin");
         })
-        .catch(console.error);
+        .catch((err) => {
+          console.error(err);
+          setIOpen(true);
+          setIsSuccess(false);
+        });
     }
   };
-
+  console.log(isOpen, "Open");
   const handleLogin = ({ email, password }) => {
     if (!email || !password) {
       return;
@@ -262,7 +269,14 @@ function App() {
           }
         />
       </Routes>
-      <InfoToolTip isOpen={isOpen} onClose={handleClose} />
+      {isOpen && (
+        <InfoTooltip
+          //message={tooltipMessage}
+          isSuccess={isSuccess}
+          //onClose={handleCloseTooltip}
+          isOpen={isOpen}
+        />
+      )}
       <Footer />
     </CurrentUserContext.Provider>
   );

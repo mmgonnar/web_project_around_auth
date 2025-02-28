@@ -21,7 +21,6 @@ const Register = ({ handleRegistration }) => {
     evt.preventDefault();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(data.email)) {
-      console.error("Please use an email");
       return;
     }
     if (data.password !== data.confirmPassword) {

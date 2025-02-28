@@ -3,11 +3,13 @@ import unsuccessful from "../../public/icons/unsuccessful.svg";
 import successful from "../../public/icons/successful.svg";
 
 const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
+  console.log(isOpen, "isOpen");
   const popupRef = useRef(null);
   const handleClose = () => {
     const popupId = popupRef.current.id;
     onClose(popupId);
   };
+
   // CLOSE WITH ESC
   // useEffect(() => {
   //   const handleKeyPress = (evt) => {
@@ -29,9 +31,7 @@ const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
         //className="popup_show info-tootip"
         ref={popupRef}
         //id={props.name}
-        className={`popup popup_${isOpen} "popup_show" ${
-          isOpen ? "popup_show" : ""
-        }`}
+        className={`popup ${isOpen ? "popup_show" : ""}`}
       >
         <div onClick={handleClose} className="popup__overlay"></div>
         <div className="popup__content">
@@ -45,15 +45,11 @@ const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
             className="button button_close"
           ></button>
         </div>
-        <img
-          src={isSuccess ? successful : unsuccessful}
-          alt={isSuccess ? "successful" : errorMessage}
-        />
-        <p>{isSuccess ? "Successful registration" : errorMessage}</p>
-        <button onClick={handleClose} className="button button_close"></button>
       </div>
     </>
   );
 };
 
 export default InfoToolTip;
+
+//////////
