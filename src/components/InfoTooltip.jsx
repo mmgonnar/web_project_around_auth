@@ -10,7 +10,7 @@ const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
     onClose(popupId);
   };
 
-  // CLOSE WITH ESC
+  // clsoe with esc
   useEffect(() => {
     const handleKeyPress = (evt) => {
       if (evt.key === "Escape") {
@@ -46,7 +46,7 @@ const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
               alt={isSuccess ? "successful" : errorMessage}
             />
             <p className="popup__message">
-              {isSuccess ? "Successful registration" : errorMessage}texto
+              {isSuccess ? "Successful registration! Now login" : errorMessage}
             </p>
           </div>
         </div>
