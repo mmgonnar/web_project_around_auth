@@ -64,6 +64,9 @@
 .popup__container {
   width: 85%;
   margin: 1.5em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .popup__title {
@@ -170,6 +173,17 @@
   height: 181px;
 }
 
+.popup__message {
+  color: black;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.popup__icon {
+  width: 120px;
+  padding-bottom: 2em;
+}
+
 @media screen and (min-width: 600px) {
   .popup__content {
     width: 430px;
@@ -179,11 +193,6 @@
   .popup__element {
     width: 433px;
     height: 540px;
-  }
-
-  .popup__container {
-    width: 85%;
-    margin: 1.5em auto;
   }
 
   .popup__title_img {

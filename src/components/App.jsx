@@ -199,6 +199,11 @@ function App() {
       })
       .catch(console.error);
   };
+
+  const handleCloseTooltip = () => {
+    setIOpen(false);
+  };
+
   // const handleLogout = ({ token }) => {
   //   removeToken(token);
   //   navigate("/");
@@ -273,7 +278,7 @@ function App() {
         <InfoTooltip
           //message={tooltipMessage}
           isSuccess={isSuccess}
-          //onClose={handleCloseTooltip}
+          onClose={handleCloseTooltip}
           isOpen={isOpen}
         />
       )}
