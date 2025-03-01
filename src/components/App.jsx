@@ -182,7 +182,7 @@ function App() {
         });
     }
   };
-  console.log(isOpen, "Open");
+
   const handleLogin = ({ email, password }) => {
     if (!email || !password) {
       return;
@@ -197,7 +197,11 @@ function App() {
         // const redirectPath = location.state?.from?.pathname || "/";
         // navigate(redirectPath);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+        setIOpen(true);
+        setIsSuccess(false);
+      });
   };
 
   const handleCloseTooltip = () => {

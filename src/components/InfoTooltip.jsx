@@ -3,14 +3,13 @@ import unsuccessful from "../../public/icons/unsuccessful.svg";
 import successful from "../../public/icons/successful.svg";
 
 const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
-  console.log(onClose, "onClose");
   const popupRef = useRef(null);
   const handleClose = () => {
     const popupId = popupRef.current.id;
     onClose(popupId);
   };
 
-  // clsoe with esc
+  // close with esc
   useEffect(() => {
     const handleKeyPress = (evt) => {
       if (evt.key === "Escape") {
