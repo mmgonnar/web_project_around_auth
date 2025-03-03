@@ -205,7 +205,7 @@ function App() {
           console.error(err);
           setIsOpen(true);
           setIsSuccess(false);
-          setErrorMessage((err = "fsdfsd"));
+          setErrorMessage((err = "Incorrect email or password"));
         });
     }
   };
