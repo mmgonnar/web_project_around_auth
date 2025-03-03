@@ -2,7 +2,9 @@ import React, { useRef, useEffect } from "react";
 import unsuccessful from "../../public/icons/unsuccessful.svg";
 import successful from "../../public/icons/successful.svg";
 
-const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
+const InfoToolTip = ({ onOpen, onSuccess, errorMessage, onClose }) => {
+  console.log(onOpen, "is open");
+  console.log(onSuccess, "Success");
   const popupRef = useRef(null);
   const handleClose = () => {
     const popupId = popupRef.current.id;
@@ -30,7 +32,7 @@ const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
         //className="popup_show info-tootip"
         ref={popupRef}
         //id={props.name}
-        className={`popup popup__tooltip ${isOpen ? "popup_show" : ""}`}
+        className={`popup popup__tooltip ${onOpen ? "popup_show" : ""}`}
       >
         <div onClick={handleClose} className="popup__overlay"></div>
         <div className="popup__content">
@@ -41,11 +43,11 @@ const InfoToolTip = ({ isOpen, isSuccess, errorMessage, onClose }) => {
             ></button>
             <img
               className="popup__icon"
-              src={isSuccess ? successful : unsuccessful}
-              alt={isSuccess ? "successful" : errorMessage}
+              src={onSuccess ? successful : unsuccessful}
+              alt={onSuccess ? "successful" : errorMessage}
             />
             <p className="popup__message">
-              {isSuccess ? "Successful registration! Now login" : errorMessage}
+              {onSuccess ? "Successful registration! Now login" : errorMessage}
             </p>
           </div>
         </div>

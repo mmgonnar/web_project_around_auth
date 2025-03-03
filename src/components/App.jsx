@@ -34,9 +34,11 @@ function App() {
     avatar: "",
   });
 
-  const [isOpen, setIOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
+  const indoErrorMessage = "";
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -166,25 +168,51 @@ function App() {
     setClose(false);
   };
 
+  // const handleRegistration = async ({ email, password, confirmPassword }) => {
+  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!emailPattern.test(email)) {
+  //     return setError("Please use a valid email");
+  //   }
+
+  //   if (password !== confirmPassword) {
+  //     return setError("Passwords do not match!");
+  //   }
+  //   try {
+  //     await auth.register(email, password, confirmPassword);
+  //     setIsOpen(true);
+  //     setIsSuccess(true);
+  //     navigate("/signin");
+  //   } catch (err) {
+  //     setError(err || "Error desconocido");
+  //     setIsOpen(true);
+  //     setIsSuccess(false);
+  //   }
+  // };
+
   const handleRegistration = ({ email, password, confirmPassword }) => {
+    console.log(isOpen, "is open");
+    console.log("Registration starts");
     if (password === confirmPassword) {
       auth
         .register(email, password, confirmPassword)
         .then(() => {
-          setIOpen(true);
+          setIsOpen(true);
           setIsSuccess(true);
           navigate("/signin");
         })
         .catch((err) => {
+          console.log(err);
           console.error(err);
-          setIOpen(true);
+          setIsOpen(true);
           setIsSuccess(false);
+          setErrorMessage((err = "fsdfsd"));
         });
     }
   };
 
   const handleLogin = ({ email, password }) => {
     if (!email || !password) {
+      //setInfoErrorMessage(errorMessage);
       return;
     }
     auth
@@ -194,18 +222,19 @@ function App() {
         setToken(token);
         navigate("/");
         setIsLoggedIn(true);
-        // const redirectPath = location.state?.from?.pathname || "/";
-        // navigate(redirectPath);
+        setErrorMessage(false);
       })
       .catch((err) => {
         console.error(err);
-        setIOpen(true);
+        // if regex
+        setErrorMessage(err);
+        setIsOpen(true);
         setIsSuccess(false);
       });
   };
 
   const handleCloseTooltip = () => {
-    setIOpen(false);
+    setIsOpen(false);
   };
 
   // const handleLogout = ({ token }) => {
@@ -281,9 +310,10 @@ function App() {
       {isOpen && (
         <InfoTooltip
           //message={tooltipMessage}
-          isSuccess={isSuccess}
+          onSuccess={isSuccess}
           onClose={handleCloseTooltip}
-          isOpen={isOpen}
+          onOpen={isOpen}
+          errorMessage={errorMessage}
         />
       )}
       <Footer />
