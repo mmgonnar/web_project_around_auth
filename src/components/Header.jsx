@@ -6,8 +6,8 @@ import NavbarMobile from "./NavBarMobile";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  //const { setIsLoggedIn, setCurrentUser, userEmail, setUserEmail } =
-  //useContext(CurrentUserContext);
+  const { setIsLoggedIn, setCurrentUser, userEmail, setUserEmail } =
+    useContext(CurrentUserContext);
   //const navigate = useNavigate(CurrentUserContext);
 
   //const location = useLocation();
@@ -49,7 +49,11 @@ const Header = () => {
             ></button>
           </>
         )}
-        <NavbarMobile isOpen={isMenuOpen}></NavbarMobile>
+        <NavbarMobile
+          isOpen={isMenuOpen}
+          onClose={toggleMenu}
+          userEmail={userEmail}
+        ></NavbarMobile>
         {location.pathname !== "/" && (
           <button className="button header__text" onClick={handleLogin}>
             {location.pathname.includes("/signin") ? "Register" : "Login"}
