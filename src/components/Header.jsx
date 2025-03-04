@@ -4,7 +4,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
 
 const Header = () => {
-  const { setIsLoggedIn, setCurrentUser } = useContext(CurrentUserContext);
+  const { setIsLoggedIn, setCurrentUser, userEmail, setUserEmail } =
+    useContext(CurrentUserContext);
+  console.log(userEmail, "current user");
   const navigate = useNavigate(CurrentUserContext);
 
   const location = useLocation();
@@ -14,6 +16,7 @@ const Header = () => {
     navigate("/signin");
     removeToken();
     setCurrentUser({});
+    setUserEmail("");
   }
 
   const handleLogin = () => {
@@ -25,6 +28,7 @@ const Header = () => {
     }
   };
 
+  console.log(userEmail, "ddddd");
   return (
     <header className="header">
       <img
@@ -43,8 +47,8 @@ const Header = () => {
             <button className="button header__text" onClick={handleLogout}>
               Logout
             </button>
+            <p className="header__text">{userEmail}</p>
             {/* <img
-              className="button header__logout-icon"
               onClick={handleLogout}
             /> */}
           </>

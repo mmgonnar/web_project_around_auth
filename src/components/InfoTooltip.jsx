@@ -3,7 +3,7 @@ import unsuccessful from "../../public/icons/unsuccessful.svg";
 import successful from "../../public/icons/successful.svg";
 
 const InfoToolTip = ({ onOpen, onSuccess, errorMessage, onClose }) => {
-  console.log(onOpen, "is open");
+  console.log(errorMessage, "ERROR");
   console.log(onSuccess, "Success");
   const popupRef = useRef(null);
   const handleClose = () => {
@@ -29,7 +29,7 @@ const InfoToolTip = ({ onOpen, onSuccess, errorMessage, onClose }) => {
   return (
     <>
       <div
-        //className="popup_show info-tootip"
+        //className="popup_show info-tooltip"
         ref={popupRef}
         //id={props.name}
         className={`popup popup__tooltip ${onOpen ? "popup_show" : ""}`}

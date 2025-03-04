@@ -19,15 +19,15 @@ const Register = ({ handleRegistration }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(data.email)) {
-      console.error("Please use a valid email");
-      return;
-    }
-    if (data.password !== data.confirmPassword) {
-      console.error("Passwords do not match!");
-      return;
-    }
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailPattern.test(data.email)) {
+    //   console.error("Please use a valid email");
+    //   return;
+    // }
+    // if (data.password !== data.confirmPassword) {
+    //   console.error("Passwords do not match!");
+    //   return;
+    // }
     handleRegistration(data);
   };
 

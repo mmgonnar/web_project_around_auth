@@ -37,10 +37,12 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
-  const indoErrorMessage = "";
   const navigate = useNavigate();
-  const location = useLocation();
+  //const location = useLocation();
+
+  console.log(userEmail, "User email");
 
   useEffect(() => {
     const jwt = getToken();
@@ -68,6 +70,24 @@ function App() {
     if (isLoggedIn) {
       fetchData();
     }
+    const getUserEmail = async () => {
+      try {
+        const data = await auth.getUserEmail();
+        if (data) {
+          setUserEmail(data.data.email);
+        } else {
+          setErrorMessage("User does not exist");
+        }
+      } catch (err) {
+        console.error(err);
+        setErrorMessage("Error getting data");
+      }
+    };
+    getUserEmail();
+
+    // getUserEmail().then((res) => {
+    //   setUserEmail();
+    // });
   }, [isLoggedIn]);
 
   const handleCardLike = async (card) => {
@@ -84,6 +104,20 @@ function App() {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     } catch (error) {
       //console.error("card like status: ", error);
+    }
+  };
+
+  const fetchUserEmail = async () => {
+    try {
+      const data = await auth.getUserEmail();
+      if (data) {
+        setUserEmail(data.email);
+      } else {
+        setErrorMessage("User does not exist");
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMessage("Error getting data");
     }
   };
 
@@ -143,7 +177,6 @@ function App() {
         handleClose("avatar");
       })
       .catch((error) => {
-        console.log(error);
         console.error("Error updating avatar");
       });
   };
@@ -153,12 +186,9 @@ function App() {
       .newCard(link, title)
       .then((addCard) => {
         setCards([addCard, ...cards]);
-        //cards.unshift(addCard);
-        //setCards(cards);
         handleClose("add");
       })
       .catch((error) => {
-        console.log(error);
         console.error("Error adding new place");
       });
   };
@@ -168,45 +198,28 @@ function App() {
     setClose(false);
   };
 
-  // const handleRegistration = async ({ email, password, confirmPassword }) => {
-  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   if (!emailPattern.test(email)) {
-  //     return setError("Please use a valid email");
-  //   }
+  const handleRegistration = async ({ email, password, confirmPassword }) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setIsOpen(true);
+      setIsSuccess(false);
+      return setErrorMessage("Please use a valid email");
+    }
 
-  //   if (password !== confirmPassword) {
-  //     return setError("Passwords do not match!");
-  //   }
-  //   try {
-  //     await auth.register(email, password, confirmPassword);
-  //     setIsOpen(true);
-  //     setIsSuccess(true);
-  //     navigate("/signin");
-  //   } catch (err) {
-  //     setError(err || "Error desconocido");
-  //     setIsOpen(true);
-  //     setIsSuccess(false);
-  //   }
-  // };
-
-  const handleRegistration = ({ email, password, confirmPassword }) => {
-    console.log(isOpen, "is open");
-    console.log("Registration starts");
-    if (password === confirmPassword) {
-      auth
-        .register(email, password, confirmPassword)
-        .then(() => {
-          setIsOpen(true);
-          setIsSuccess(true);
-          navigate("/signin");
-        })
-        .catch((err) => {
-          console.log(err);
-          console.error(err);
-          setIsOpen(true);
-          setIsSuccess(false);
-          setErrorMessage((err = "Incorrect email or password"));
-        });
+    if (password !== confirmPassword) {
+      setIsOpen(true);
+      setIsSuccess(false);
+      return setErrorMessage("Passwords do not match!");
+    }
+    try {
+      await auth.register(email, password, confirmPassword);
+      setIsOpen(true);
+      setIsSuccess(true);
+      navigate("/signin");
+    } catch (err) {
+      setErrorMessage("");
+      setIsOpen(true);
+      setIsSuccess(false);
     }
   };
 
@@ -259,7 +272,14 @@ function App() {
 
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, isLoggedIn, setIsLoggedIn, setCurrentUser }}
+      value={{
+        currentUser,
+        isLoggedIn,
+        setIsLoggedIn,
+        setCurrentUser,
+        userEmail,
+        setUserEmail,
+      }}
     >
       <Header />
       <Routes>
