@@ -1,34 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
+import NavbarMobile from "./NavBarMobile";
 
 const Header = () => {
-  const { setIsLoggedIn, setCurrentUser, userEmail, setUserEmail } =
-    useContext(CurrentUserContext);
-  console.log(userEmail, "current user");
-  const navigate = useNavigate(CurrentUserContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  //const { setIsLoggedIn, setCurrentUser, userEmail, setUserEmail } =
+  //useContext(CurrentUserContext);
+  //const navigate = useNavigate(CurrentUserContext);
 
-  const location = useLocation();
+  //const location = useLocation();
 
-  function handleLogout({ token }) {
-    setIsLoggedIn(false);
-    navigate("/signin");
-    removeToken();
-    setCurrentUser({});
-    setUserEmail("");
-  }
+  // function handleLogout({ token }) {
+  //   setIsLoggedIn(false);
+  //   navigate("/signin");
+  //   removeToken();
+  //   setCurrentUser({});
+  //   setUserEmail("");
+  // }
 
-  const handleLogin = () => {
-    if (location.pathname.includes("/signin")) {
-      navigate("/signup");
-    }
-    if (location.pathname === "/signup") {
-      navigate("/signin");
-    }
+  // const handleLogin = () => {
+  //   if (location.pathname.includes("/signin")) {
+  //     navigate("/signup");
+  //   }
+  //   if (location.pathname === "/signup") {
+  //     navigate("/signin");
+  //   }
+  // };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
-  console.log(userEmail, "ddddd");
   return (
     <header className="header">
       <img
@@ -37,23 +41,28 @@ const Header = () => {
         className="header__logo"
       />
       <div className="header__text-container">
+        {location.pathname === "/" && (
+          <>
+            <button
+              className="button navbar__mobile-button"
+              onClick={toggleMenu}
+            ></button>
+          </>
+        )}
+        <NavbarMobile isOpen={isMenuOpen}></NavbarMobile>
         {location.pathname !== "/" && (
           <button className="button header__text" onClick={handleLogin}>
             {location.pathname.includes("/signin") ? "Register" : "Login"}
           </button>
         )}
-        {location.pathname === "/" && (
+        {/* {location.pathname === "/" && (
           <>
             <p className="header__text header__text-email">{userEmail}</p>
             <button className="button header__text " onClick={handleLogout}>
-              Logout
+              Logout<span>Logout</span>
             </button>
-
-            {/* <img
-              onClick={handleLogout}
-            /> */}
           </>
-        )}
+        )} */}
 
         {/* {location.pathname.includes("/signin") &&
           location.pathname.includes("/signup") && (

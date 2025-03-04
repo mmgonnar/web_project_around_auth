@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Cards = (props) => {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser, cards } = useContext(CurrentUserContext);
 
   return (
     <div className="cards" id="cards-template">
-      {props.cards.map((card) => {
+      {cards.map((card) => {
         const isOwn = card.owner._id === currentUser._id;
 
         return (

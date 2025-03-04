@@ -18,6 +18,8 @@
 @import url(./blocks/form.css);
 /* Register */
 @import url(./blocks/register.css);
+/* Navbar */
+@import url(./blocks/navbar.css);
 
 #root {
   width: 100%;

@@ -40,9 +40,7 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
 
   const navigate = useNavigate();
-  //const location = useLocation();
-
-  console.log(userEmail, "User email");
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
     const jwt = getToken();
@@ -61,6 +59,7 @@ function App() {
     const fetchData = async () => {
       try {
         const cardsData = await api.getCards();
+        console.log(cardsData, "cards data");
         setCards(cardsData);
       } catch (error) {
         console.error("Error fetching user data: ", error);
@@ -199,7 +198,7 @@ function App() {
   };
 
   const handleRegistration = async ({ email, password, confirmPassword }) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       setIsOpen(true);
       setIsSuccess(false);
@@ -227,6 +226,11 @@ function App() {
     if (!email || !password) {
       //setInfoErrorMessage(errorMessage);
       return;
+    }
+    if (!emailPattern.test(email)) {
+      setIsOpen(true);
+      setIsSuccess(false);
+      return setErrorMessage("Please use a valid email");
     }
     auth
       .authorize(email, password)
@@ -279,6 +283,7 @@ function App() {
         setCurrentUser,
         userEmail,
         setUserEmail,
+        cards,
       }}
     >
       <Header />

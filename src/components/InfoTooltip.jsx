@@ -3,8 +3,6 @@ import unsuccessful from "../../public/icons/unsuccessful.svg";
 import successful from "../../public/icons/successful.svg";
 
 const InfoToolTip = ({ onOpen, onSuccess, errorMessage, onClose }) => {
-  console.log(errorMessage, "ERROR");
-  console.log(onSuccess, "Success");
   const popupRef = useRef(null);
   const handleClose = () => {
     const popupId = popupRef.current.id;
