@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
 import NavbarMobile from "./NavBarMobile";
+import NavbarDesktop from "./NavBarDesktop";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,14 +21,14 @@ const Header = () => {
   //   setUserEmail("");
   // }
 
-  // const handleLogin = () => {
-  //   if (location.pathname.includes("/signin")) {
-  //     navigate("/signup");
-  //   }
-  //   if (location.pathname === "/signup") {
-  //     navigate("/signin");
-  //   }
-  // };
+  const handleLogin = () => {
+    if (location.pathname.includes("/signin")) {
+      navigate("/signup");
+    }
+    if (location.pathname === "/signup") {
+      navigate("/signin");
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -54,6 +55,7 @@ const Header = () => {
           onClose={toggleMenu}
           userEmail={userEmail}
         ></NavbarMobile>
+        <NavbarDesktop></NavbarDesktop>
         {location.pathname !== "/" && (
           <button className="button header__text" onClick={handleLogin}>
             {location.pathname.includes("/signin") ? "Register" : "Login"}

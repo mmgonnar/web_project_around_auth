@@ -254,10 +254,13 @@ function App() {
     setIsOpen(false);
   };
 
-  // const handleLogout = ({ token }) => {
-  //   removeToken(token);
-  //   navigate("/");
-  // };
+  function handleLogout({ token }) {
+    setIsLoggedIn(false);
+    navigate("/signin");
+    removeToken();
+    setCurrentUser({});
+    setUserEmail("");
+  }
 
   // useEffect(() => {
   //   const jwt = getToken();
