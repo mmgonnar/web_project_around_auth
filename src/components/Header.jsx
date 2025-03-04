@@ -44,10 +44,11 @@ const Header = () => {
         )}
         {location.pathname === "/" && (
           <>
-            <button className="button header__text" onClick={handleLogout}>
+            <p className="header__text header__text-email">{userEmail}</p>
+            <button className="button header__text " onClick={handleLogout}>
               Logout
             </button>
-            <p className="header__text">{userEmail}</p>
+
             {/* <img
               onClick={handleLogout}
             /> */}
