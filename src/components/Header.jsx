@@ -13,13 +13,13 @@ const Header = () => {
 
   //const location = useLocation();
 
-  // function handleLogout({ token }) {
-  //   setIsLoggedIn(false);
-  //   navigate("/signin");
-  //   removeToken();
-  //   setCurrentUser({});
-  //   setUserEmail("");
-  // }
+  function handleLogout({ token }) {
+    setIsLoggedIn(false);
+    navigate("/signin");
+    removeToken();
+    setCurrentUser({});
+    setUserEmail("");
+  }
 
   const handleLogin = () => {
     if (location.pathname.includes("/signin")) {
@@ -36,31 +36,36 @@ const Header = () => {
 
   return (
     <header className="header">
-      <img
-        src="/logo_aus.svg"
-        alt="Logo Around the US"
-        className="header__logo"
-      />
-      <div className="header__text-container">
-        {location.pathname === "/" && (
-          <>
-            <button
-              className="button navbar__mobile-button"
-              onClick={toggleMenu}
-            ></button>
-          </>
-        )}
-        <NavbarMobile
-          isOpen={isMenuOpen}
-          onClose={toggleMenu}
-          userEmail={userEmail}
-        ></NavbarMobile>
-        <NavbarDesktop></NavbarDesktop>
-        {location.pathname !== "/" && (
-          <button className="button header__text" onClick={handleLogin}>
-            {location.pathname.includes("/signin") ? "Register" : "Login"}
-          </button>
-        )}
+      <NavbarMobile
+        isOpen={isMenuOpen}
+        onClose={toggleMenu}
+        userEmail={userEmail}
+      ></NavbarMobile>
+
+      <div className="header__container">
+        <img
+          src="/logo_aus.svg"
+          alt="Logo Around the US"
+          className="header__logo"
+        />
+        <div className="header__text-container">
+          {location.pathname === "/" && (
+            <>
+              <button
+                className="button navbar__mobile-button"
+                onClick={toggleMenu}
+              ></button>
+            </>
+          )}
+
+          {/* {location.pathname !== "/" && (
+            <button className="button header__text" onClick={handleLogin}>
+              {location.pathname.includes("/signin") ? "Register" : "Login"}
+            </button>
+          )} */}
+          <NavbarDesktop></NavbarDesktop>
+        </div>
+
         {/* {location.pathname === "/" && (
           <>
             <p className="header__text header__text-email">{userEmail}</p>

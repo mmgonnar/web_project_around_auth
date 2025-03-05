@@ -9,8 +9,16 @@
   padding-top: 1%;
   padding-bottom: 20px;
 
+
 }
 
+.header__container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 5%;
+}
 .header__logo {
   width: 20%;
   /* max-width: 170px;
