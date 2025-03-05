@@ -9,9 +9,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { setIsLoggedIn, setCurrentUser, userEmail, setUserEmail } =
     useContext(CurrentUserContext);
-  //const navigate = useNavigate(CurrentUserContext);
+  const navigate = useNavigate(CurrentUserContext);
 
-  //const location = useLocation();
+  const location = useLocation();
 
   function handleLogout({ token }) {
     setIsLoggedIn(false);
@@ -19,6 +19,7 @@ const Header = () => {
     removeToken();
     setCurrentUser({});
     setUserEmail("");
+    isOpen(false);
   }
 
   const handleLogin = () => {
@@ -31,6 +32,7 @@ const Header = () => {
   };
 
   const toggleMenu = () => {
+    setIsMenuOpen(false);
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -44,6 +46,7 @@ const Header = () => {
         isOpen={isMenuOpen}
         onClose={toggleMenu}
         userEmail={userEmail}
+        onClick={isMenuOpen}
       ></NavbarMobile>
 
       <div className="header__container">
@@ -62,11 +65,11 @@ const Header = () => {
             </>
           )}
 
-          {/* {location.pathname !== "/" && (
+          {location.pathname !== "/" && (
             <button className="button header__text" onClick={handleLogin}>
               {location.pathname.includes("/signin") ? "Register" : "Login"}
             </button>
-          )} */}
+          )}
           <NavbarDesktop></NavbarDesktop>
         </div>
 
@@ -79,13 +82,13 @@ const Header = () => {
           </>
         )} */}
 
-        {/* {location.pathname.includes("/signin") &&
+        {location.pathname.includes("/signin") &&
           location.pathname.includes("/signup") && (
             <button
               className="button header__icon"
               onClick={handleLogout}
             ></button>
-          )} */}
+          )}
       </div>
     </header>
   );
