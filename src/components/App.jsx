@@ -198,7 +198,6 @@ function App() {
   };
 
   const handleRegistration = async ({ email, password, confirmPassword }) => {
-    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       setIsOpen(true);
       setIsSuccess(false);
@@ -210,15 +209,20 @@ function App() {
       setIsSuccess(false);
       return setErrorMessage("Passwords do not match!");
     }
+
     try {
       await auth.register(email, password, confirmPassword);
       setIsOpen(true);
       setIsSuccess(true);
       navigate("/signin");
     } catch (err) {
-      setErrorMessage("");
       setIsOpen(true);
       setIsSuccess(false);
+      if (err.message === "Error: 400" || err.status === 400) {
+        setErrorMessage("Something went wrong! Please try again.");
+      } else {
+        setErrorMessage("This email is already registered");
+      }
     }
   };
 
@@ -243,8 +247,7 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
-        // if regex
-        setErrorMessage(err);
+        setErrorMessage("");
         setIsOpen(true);
         setIsSuccess(false);
       });
