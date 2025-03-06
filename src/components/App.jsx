@@ -59,7 +59,6 @@ function App() {
     const fetchData = async () => {
       try {
         const cardsData = await api.getCards();
-        console.log(cardsData, "cards data");
         setCards(cardsData);
       } catch (error) {
         console.error("Error fetching user data: ", error);
@@ -228,7 +227,6 @@ function App() {
 
   const handleLogin = ({ email, password }) => {
     if (!email || !password) {
-      //setInfoErrorMessage(errorMessage);
       return;
     }
     if (!emailPattern.test(email)) {
@@ -246,10 +244,13 @@ function App() {
         setErrorMessage(false);
       })
       .catch((err) => {
-        console.error(err);
-        setErrorMessage("");
         setIsOpen(true);
         setIsSuccess(false);
+        if (err.message === "Error: 401" || err.status === 401) {
+          setErrorMessage("Something went wrong! Please try again.");
+        } else {
+          setErrorMessage("Incorrect email or password");
+        }
       });
   };
 

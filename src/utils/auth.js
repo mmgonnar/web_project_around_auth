@@ -28,7 +28,7 @@ export const authorize = (email, password) => {
   });
 };
 
-export const getUserEmail = async () => {
+export const getUserEmail = async (email) => {
   try {
     const response = await fetch(
       "https://se-register-api.en.tripleten-services.com/v1/users/me",
