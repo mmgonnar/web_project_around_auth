@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = ({ handleRegistration }) => {
-  //const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -19,15 +18,7 @@ const Register = ({ handleRegistration }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // if (!emailPattern.test(data.email)) {
-    //   console.error("Please use a valid email");
-    //   return;
-    // }
-    // if (data.password !== data.confirmPassword) {
-    //   console.error("Passwords do not match!");
-    //   return;
-    // }
+
     handleRegistration(data);
   };
 

@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
 

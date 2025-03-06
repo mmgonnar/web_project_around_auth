@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { getToken, setToken } from "../utils/token";
 
 const Login = ({ handleLogin }) => {
   const initialState = "";

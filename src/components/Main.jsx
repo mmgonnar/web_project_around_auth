@@ -93,6 +93,7 @@ const Main = (props) => {
           </div>
         </div>
       </div>
+      {/* Cards */}
       <Cards
         onCardClick={props.onCardClick}
         cards={props.cards}

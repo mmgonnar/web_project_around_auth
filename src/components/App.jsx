@@ -1,11 +1,5 @@
 import { useState, useEffect, use } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Footer from "./Footer";
 import Header from "./Header";
@@ -82,10 +76,6 @@ function App() {
       }
     };
     getUserEmail();
-
-    // getUserEmail().then((res) => {
-    //   setUserEmail();
-    // });
   }, [isLoggedIn]);
 
   const handleCardLike = async (card) => {
@@ -96,12 +86,11 @@ function App() {
         newCard = await api.deleteLikeCard(card._id);
       } else {
         newCard = await api.likeCard(card._id);
-        //console.error("Liked Card", error);
       }
 
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
     } catch (error) {
-      //console.error("card like status: ", error);
+      console.error("Error handling like:", error);
     }
   };
 
@@ -266,21 +255,6 @@ function App() {
     setUserEmail("");
   }
 
-  // useEffect(() => {
-  //   const jwt = getToken();
-  //   if (!jwt) {
-  //     return;
-  //   }
-  //   api
-  //     .getUserInfo(jwt)
-  //     .then((userData) => {
-  //       setIsLoggedIn(true);
-  //       setUserData(userData.email);
-  //       setCurrentUser(userData);
-  //     })
-  //     .catch(console.error);
-  // }, []);
-
   return (
     <CurrentUserContext.Provider
       value={{
@@ -341,7 +315,6 @@ function App() {
       </Routes>
       {isOpen && (
         <InfoTooltip
-          //message={tooltipMessage}
           onSuccess={isSuccess}
           onClose={handleCloseTooltip}
           onOpen={isOpen}

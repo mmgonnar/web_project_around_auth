@@ -27,9 +27,7 @@ const InfoToolTip = ({ onOpen, onSuccess, errorMessage, onClose }) => {
   return (
     <>
       <div
-        //className="popup_show info-tooltip"
         ref={popupRef}
-        //id={props.name}
         className={`popup popup__tooltip ${onOpen ? "popup_show" : ""}`}
       >
         <div onClick={handleClose} className="popup__overlay"></div>
@@ -55,5 +53,3 @@ const InfoToolTip = ({ onOpen, onSuccess, errorMessage, onClose }) => {
 };
 
 export default InfoToolTip;
-
-//////////
