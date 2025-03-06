@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
-import NavbarMobile from "./NavBarMobile";
+import NavbarMobile from "./NavbarMobile";
 import NavbarDesktop from "./NavBarDesktop";
 import burgerMenu from "../../public/icons/hamburger.svg";
 import closeMenu from "../../public/icons/close_button.svg";
