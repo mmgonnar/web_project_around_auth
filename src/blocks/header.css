@@ -40,7 +40,7 @@
 }
 
 .header__text {
-  font-size: max(1em, min(1.5vw, 1.5em));
+  font-size: max(1em, min(1.5vw, 1.2em));
   text-decoration: none;
   color: rgb(149, 149, 149);
   padding-top: 10px;

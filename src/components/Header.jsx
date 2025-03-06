@@ -4,6 +4,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
 import NavbarMobile from "./NavBarMobile";
 import NavbarDesktop from "./NavBarDesktop";
+import burgerMenu from "../../public/icons/hamburger.svg";
+import closeMenu from "../../public/icons/close_button.svg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,9 +38,9 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  // const closeMenu = () => {
+  //   setIsMenuOpen(false);
+  // };
 
   return (
     <header className="header">
@@ -56,11 +58,13 @@ const Header = () => {
           className="header__logo"
         />
         <div className="header__text-container">
-          {location.pathname === "/" && (
+          {location.pathname === "/" && !isMenuOpen && (
             <>
               <button
+                //src={toggleMenu(false) ? burgerMenu : closeMenu}
                 className="button navbar__mobile-button"
                 onClick={toggleMenu}
+                // onClick={toggleMenu(false) ? burgerMenu : closeMenu}
               ></button>
             </>
           )}
