@@ -4,8 +4,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { removeToken } from "../utils/token";
 import NavbarMobile from "./NavbarMobile";
 import NavbarDesktop from "./NavBarDesktop";
-import burgerMenu from "../../public/icons/hamburger.svg";
-import closeMenu from "../../public/icons/close_button.svg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,23 +32,12 @@ const Header = () => {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(false);
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // const closeMenu = () => {
-  //   setIsMenuOpen(false);
-  // };
-
   return (
     <header className="header">
-      <NavbarMobile
-        isOpen={isMenuOpen}
-        onClose={toggleMenu}
-        userEmail={userEmail}
-        onClick={isMenuOpen}
-      ></NavbarMobile>
-
+      <NavbarMobile isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <div className="header__container">
         <img
           src="/logo_aus.svg"
@@ -59,40 +46,19 @@ const Header = () => {
         />
         <div className="header__text-container">
           {location.pathname === "/" && !isMenuOpen && (
-            <>
-              <button
-                //src={toggleMenu(false) ? burgerMenu : closeMenu}
-                className="button navbar__mobile-button"
-                onClick={toggleMenu}
-                // onClick={toggleMenu(false) ? burgerMenu : closeMenu}
-              ></button>
-            </>
+            <button
+              className="button navbar__mobile-button"
+              onClick={toggleMenu}
+            ></button>
           )}
-
           {location.pathname !== "/" && (
             <button className="button header__text" onClick={handleLogin}>
               {location.pathname.includes("/signin") ? "Register" : "Login"}
             </button>
           )}
-          <NavbarDesktop></NavbarDesktop>
+
+          <NavbarDesktop />
         </div>
-
-        {/* {location.pathname === "/" && (
-          <>
-            <p className="header__text header__text-email">{userEmail}</p>
-            <button className="button header__text " onClick={handleLogout}>
-              Logout<span>Logout</span>
-            </button>
-          </>
-        )} */}
-
-        {location.pathname.includes("/signin") &&
-          location.pathname.includes("/signup") && (
-            <button
-              className="button header__icon"
-              onClick={handleLogout}
-            ></button>
-          )}
       </div>
     </header>
   );
