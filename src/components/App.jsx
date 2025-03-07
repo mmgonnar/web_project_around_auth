@@ -20,7 +20,7 @@ function App() {
   const [isCardPopupOpen, setCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
-  const [userData, setUserData] = useState({ username: "", email: "" });
+  //const [userData, setUserData] = useState({ username: "", email: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -45,7 +45,7 @@ function App() {
       .getUserInfo(jwt)
       .then((userData) => {
         setIsLoggedIn(true);
-        setUserData(userData.email);
+        //setUserData(userData.email);
         setCurrentUser(userData);
       })
       .catch(console.error);
@@ -94,19 +94,19 @@ function App() {
     }
   };
 
-  const fetchUserEmail = async () => {
-    try {
-      const data = await auth.getUserEmail();
-      if (data) {
-        setUserEmail(data.email);
-      } else {
-        setErrorMessage("User does not exist");
-      }
-    } catch (err) {
-      console.error(err);
-      setErrorMessage("Error getting data");
-    }
-  };
+  // const fetchUserEmail = async () => {
+  //   try {
+  //     const data = await auth.getUserEmail();
+  //     if (data) {
+  //       setUserEmail(data.email);
+  //     } else {
+  //       setErrorMessage("User does not exist");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     setErrorMessage("Error getting data");
+  //   }
+  // };
 
   const handleCardDelete = async (cardId) => {
     try {
@@ -226,7 +226,7 @@ function App() {
     auth
       .authorize(email, password)
       .then(({ token }) => {
-        setUserData(email, password);
+        //setUserData(email, password);
         setToken(token);
         navigate("/");
         setIsLoggedIn(true);
@@ -247,6 +247,7 @@ function App() {
     setIsOpen(false);
   };
 
+  //pasarlo como prpo y limpiar codigo
   function handleLogout({ token }) {
     setIsLoggedIn(false);
     navigate("/signin");
@@ -265,6 +266,7 @@ function App() {
         userEmail,
         setUserEmail,
         cards,
+        handleLogout,
       }}
     >
       <Header />

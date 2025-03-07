@@ -34,6 +34,27 @@
   overflow: visible;
 }
 
+
+
+.header__text-container {
+  position: relative;
+}
+
+.navbar-desktop{
+  display: none;
+  width: 100%;
+}
+
+
+.navbar__button-close{
+  position: absolute;
+  display: none;
+  left: -3px;
+  top: -3px;
+  /* bottom: -53%;
+  right: 10%;
+  z-index: 1000; */
+}
 .navbar__mobile-button {
   background: url(../../public/icons/hamburger.svg);
   width: 18px;
@@ -47,17 +68,38 @@
 
 }
 
-.navbar-desktop{
-  display: none;
-  width: 100%;
+.button__animation_open {
+  display: block;
+  animation: fadeInWhileSpin 0.5s forwards;
 }
 
+.button__animation_close {
+  animation: fadeOutWhileSpin 0.5s forwards;
+  /* animation-fill-mode: forwards; */
+}
 
-.navbar__button-close{
-  bottom: -53%;
-  right: 10%;
-  position: absolute;
-  z-index: 1000;
+@keyframes fadeInWhileSpin {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+
+}
+
+@keyframes fadeOutWhileSpin{
+  0% {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+
 }
 
 @media screen and (min-width: 470px) {

@@ -37,7 +37,11 @@ const Header = () => {
 
   return (
     <header className="header">
-      <NavbarMobile isOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <NavbarMobile
+        isOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        showCloseButton={false}
+      />
       <div className="header__container">
         <img
           src="/logo_aus.svg"
@@ -45,12 +49,23 @@ const Header = () => {
           className="header__logo"
         />
         <div className="header__text-container">
-          {location.pathname === "/" && !isMenuOpen && (
+          <div className="header__button-container">
+            {location.pathname === "/" && (
+              <button
+                className={`button navbar__mobile-button ${
+                  isMenuOpen && "button__animation_close"
+                }`}
+                onClick={toggleMenu}
+              ></button>
+            )}
             <button
-              className="button navbar__mobile-button"
-              onClick={toggleMenu}
+              className={`button button_close navbar__button-close ${
+                isMenuOpen && "button__animation_open"
+              }`}
+              onClick={() => setIsMenuOpen(false)}
             ></button>
-          )}
+          </div>
+
           {location.pathname !== "/" && (
             <button className="button header__text" onClick={handleLogin}>
               {location.pathname.includes("/signin") ? "Register" : "Login"}
