@@ -1,6 +1,7 @@
 import { useState, useEffect, use } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+import LoadingSpinner from "./LoadingSpinner";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
@@ -32,6 +33,7 @@ function App() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,6 +41,7 @@ function App() {
   useEffect(() => {
     const jwt = getToken();
     if (!jwt) {
+      setIsLoading(false);
       return;
     }
     api
@@ -48,7 +51,8 @@ function App() {
         //setUserData(userData.email);
         setCurrentUser(userData);
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
 
     const fetchData = async () => {
       try {
@@ -56,6 +60,8 @@ function App() {
         setCards(cardsData);
       } catch (error) {
         console.error("Error fetching user data: ", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -73,6 +79,8 @@ function App() {
       } catch (err) {
         console.error(err);
         setErrorMessage("Error getting data");
+      } finally {
+        setIsLoading(false); // XXXXXXXXXXXXX
       }
     };
     getUserEmail();
@@ -177,6 +185,9 @@ function App() {
       })
       .catch((error) => {
         console.error("Error adding new place");
+      })
+      .finally(() => {
+        setIsLoading(true);
       });
   };
 
@@ -270,51 +281,55 @@ function App() {
       }}
     >
       <Header />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-            >
-              <Main
-                isEditProfilePopupOpen={isEditProfilePopupOpen}
-                isAddPlacePopupOpen={isAddPlacePopupOpen}
-                isAvatarPopupOpen={isAvatarPopupOpen}
-                isCardPopupOpen={isCardPopupOpen}
-                onEditProfileClick={handleEditProfileClick}
-                onAddPlaceClick={handleAddPlaceClick}
-                onEditAvatarClick={handleEditAvatarClick}
-                onCardClick={handleCardClick}
-                onClose={handleClose}
-                selectedCard={selectedCard}
-                setCurrentUser={setCurrentUser}
-                onUpdateUser={handleUpdateUser}
-                onUpdateAvatar={handleUpdateAvatar}
-                cards={cards}
-                onCardDelete={handleCardDelete}
-                onCardLike={handleCardLike}
-                onAddCard={handleNewCard}
+      {isLoading ? (
+        <LoadingSpinner loading={isLoading} />
+      ) : (
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+              >
+                <Main
+                  isEditProfilePopupOpen={isEditProfilePopupOpen}
+                  isAddPlacePopupOpen={isAddPlacePopupOpen}
+                  isAvatarPopupOpen={isAvatarPopupOpen}
+                  isCardPopupOpen={isCardPopupOpen}
+                  onEditProfileClick={handleEditProfileClick}
+                  onAddPlaceClick={handleAddPlaceClick}
+                  onEditAvatarClick={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  onClose={handleClose}
+                  selectedCard={selectedCard}
+                  setCurrentUser={setCurrentUser}
+                  onUpdateUser={handleUpdateUser}
+                  onUpdateAvatar={handleUpdateAvatar}
+                  cards={cards}
+                  onCardDelete={handleCardDelete}
+                  onCardLike={handleCardLike}
+                  onAddCard={handleNewCard}
+                />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/signin"
+            element={<Login handleLogin={handleLogin} />}
+            setIsLoggedIn={setIsLoggedIn}
+          />
+          <Route
+            path="/signup"
+            element={
+              <Register
+                handleRegistration={handleRegistration}
+                setIsLoggedIn={setIsLoggedIn}
               />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/signin"
-          element={<Login handleLogin={handleLogin} />}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-        <Route
-          path="/signup"
-          element={
-            <Register
-              handleRegistration={handleRegistration}
-              setIsLoggedIn={setIsLoggedIn}
-            />
-          }
-        />
-      </Routes>
+            }
+          />
+        </Routes>
+      )}
       {isOpen && (
         <InfoTooltip
           onSuccess={isSuccess}
