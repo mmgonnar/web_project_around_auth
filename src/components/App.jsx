@@ -13,6 +13,7 @@ import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import { getToken, setToken, removeToken } from "../utils/token";
 import InfoTooltip from "./InfoToolTip";
+import emailPattern from "../constants/constants";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -36,7 +37,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
     const jwt = getToken();
